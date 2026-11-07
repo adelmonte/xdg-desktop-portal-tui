@@ -1,10 +1,10 @@
 [package]
-name = "file-browser-portal"
+name = "xdg-desktop-portal-tui"
 version = "0.1.0"
 edition = "2024"
 description = "An xdg-desktop-portal file chooser that picks with file-browser-tui in kitty"
 license = "GPL-3.0-only"
-repository = "https://github.com/adelmonte/file-browser-portal"
+repository = "https://github.com/adelmonte/xdg-desktop-portal-tui"
 
 [dependencies]
 zbus  = { version = "5.12", default-features = false, features = ["tokio"] }

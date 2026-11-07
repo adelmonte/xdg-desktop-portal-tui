@@ -142,17 +142,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "da7c62ceae207dd37ea5b845da6a0696c799f85e97da1ab5b7910be3c1c80223"
 
 [[package]]
-name = "file-browser-portal"
-version = "0.1.0"
-dependencies = [
- "nix",
- "serde",
- "tokio",
- "toml",
- "zbus",
-]
-
-[[package]]
 name = "futures-core"
 version = "0.3.34"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -719,6 +708,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8c3b93199df0ab874cdf0c6a94f0a0dc3423fe41f1cafb62b8bd7b1deb277aef"
 dependencies = [
  "memchr",
+]
+
+[[package]]
+name = "xdg-desktop-portal-tui"
+version = "0.1.0"
+dependencies = [
+ "nix",
+ "serde",
+ "tokio",
+ "toml",
+ "zbus",
 ]
 
 [[package]]

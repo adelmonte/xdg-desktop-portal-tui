@@ -14,7 +14,7 @@ use zbus::object_server::ObjectServer;
 use zbus::zvariant::{OwnedObjectPath, OwnedValue, Value};
 use zbus::{connection, interface};
 
-const BUS_NAME: &str = "org.freedesktop.impl.portal.desktop.filebrowserportal";
+const BUS_NAME: &str = "org.freedesktop.impl.portal.desktop.tui";
 
 // The picking request and answer, as file-browser-tui's `--pick` reads them
 
@@ -129,12 +129,12 @@ impl Picker {
         let text = match toml::to_string(&req) {
             Ok(t) => t,
             Err(e) => {
-                eprintln!("file-browser-portal: {e}");
+                eprintln!("xdg-desktop-portal-tui: {e}");
                 return (2, Options::new());
             }
         };
         if let Err(e) = std::fs::write(&req_path, text) {
-            eprintln!("file-browser-portal: writing {}: {e}", req_path.display());
+            eprintln!("xdg-desktop-portal-tui: writing {}: {e}", req_path.display());
             return (2, Options::new());
         }
 
@@ -150,7 +150,7 @@ impl Picker {
                 child.wait().await.ok()
             }
             Err(e) => {
-                eprintln!("file-browser-portal: starting {}: {e}", self.browser.display());
+                eprintln!("xdg-desktop-portal-tui: starting {}: {e}", self.browser.display());
                 None
             }
         };
@@ -265,13 +265,13 @@ impl Picker {
 }
 
 const HELP: &str = "\
-file-browser-portal: an xdg-desktop-portal file chooser using file-browser-tui
+xdg-desktop-portal-tui: an xdg-desktop-portal file chooser using file-browser-tui
 
-Usage: file-browser-portal [--browser PATH]
+Usage: xdg-desktop-portal-tui [--browser PATH]
   --browser PATH   the file-browser-tui to pick with (default: from PATH)
 
 Started by D-Bus when a program asks the portal for a file; set
-org.freedesktop.impl.portal.FileChooser=file-browser-portal in
+org.freedesktop.impl.portal.FileChooser=tui in
 ~/.config/xdg-desktop-portal/portals.conf to use it.";
 
 #[tokio::main(flavor = "current_thread")]
@@ -283,7 +283,7 @@ async fn main() -> zbus::Result<()> {
             Some("--browser") => match args.next() {
                 Some(p) => browser = PathBuf::from(p),
                 None => {
-                    eprintln!("file-browser-portal: --browser needs a path");
+                    eprintln!("xdg-desktop-portal-tui: --browser needs a path");
                     std::process::exit(2);
                 }
             },
@@ -292,18 +292,18 @@ async fn main() -> zbus::Result<()> {
                 return Ok(());
             }
             Some("--version" | "-V") => {
-                println!("file-browser-portal {}", env!("CARGO_PKG_VERSION"));
+                println!("xdg-desktop-portal-tui {}", env!("CARGO_PKG_VERSION"));
                 return Ok(());
             }
             _ => {
-                eprintln!("file-browser-portal: unknown argument {} (see --help)", a.to_string_lossy());
+                eprintln!("xdg-desktop-portal-tui: unknown argument {} (see --help)", a.to_string_lossy());
                 std::process::exit(2);
             }
         }
     }
     let runtime = std::env::var_os("XDG_RUNTIME_DIR").map(PathBuf::from)
         .unwrap_or_else(std::env::temp_dir)
-        .join("file-browser-portal");
+        .join("xdg-desktop-portal-tui");
     std::fs::create_dir_all(&runtime)?;
 
     let picker = Picker { browser, runtime, seq: AtomicU64::new(0) };
