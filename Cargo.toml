@@ -1,0 +1,17 @@
+[package]
+name = "file-browser-portal"
+version = "0.1.0"
+edition = "2024"
+description = "An xdg-desktop-portal file chooser that picks with file-browser-tui in kitty"
+license = "GPL-3.0-only"
+repository = "https://github.com/adelmonte/file-browser-portal"
+
+[dependencies]
+zbus  = { version = "5.12", default-features = false, features = ["tokio"] }
+tokio = { version = "1", features = ["rt", "macros", "process", "fs", "signal"] }
+serde = { version = "1.0", features = ["derive"] }
+toml  = "0.8"
+nix   = { version = "0.30.1", features = ["signal"] }
+
+[profile.release]
+lto = "thin"
