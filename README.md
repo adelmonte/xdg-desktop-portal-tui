@@ -20,7 +20,7 @@ dialog. What you pick goes back to the program.
 
 ## Requirements
 
-- [file-browser-tui](https://github.com/adelmonte/file-browser-tui) 1.1.0 or later, and
+- [file-browser-tui](https://github.com/adelmonte/file-browser-tui) 1.1.3 or later, and
   [kitty](https://sw.kovidgoyal.net/kitty/)
 - xdg-desktop-portal
 - Another portal backend (xdg-desktop-portal-gtk, -kde, -gnome, ...) for everything that
